@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>画像 → Base64 変換ツール</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; background: #f8f8f8; }
+    textarea { width: 100%; height: 300px; }
+    img { max-width: 100%; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>画像 → Base64 変換ツール</h1>
+  <input type="file" id="imageInput" accept="image/*"><br><br>
+  <textarea id="output" placeholder="Base64データがここに表示されます"></textarea>
+  <img id="preview" alt="プレビュー画像">
+  
+  <script>
+    const input = document.getElementById('imageInput');
+    const output = document.getElementById('output');
+    const preview = document.getElementById('preview');
+
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        output.value = e.target.result;
+        preview.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
